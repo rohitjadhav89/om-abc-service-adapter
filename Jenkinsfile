@@ -18,16 +18,12 @@ pipeline {
             }
         }
 
-        stage('Initialize') {
-            steps {
-                script {
-                    // Set up Docker environment
-                    def dockerHome = tool name: 'myDocker', type: 'ToolType' // Specify the tool you want to use
-                    env.PATH = "${dockerHome}/bin:${env.PATH}"
-                    echo "Docker home directory is: ${dockerHome}"
+        stage('Docker Login') {
+                    steps {
+                        //Required for pulling base images from hansen Jfrog cloud
+                        sh 'docker login trialn07m4a.jfrog.io -u rohitnarayanaboy@gmail.com -p cmVmdGtuOjAxOjE3NzU1Mzk5NzY6NVE3NFFUOWc5bG1JajFobFZSWmJDdlF3UlY1'
+                    }
                 }
-            }
-        }
 
         stage('Build Docker Image') {
             steps {
