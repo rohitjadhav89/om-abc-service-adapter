@@ -18,7 +18,7 @@ pipeline {
         skipDefaultCheckout(true)
     }
     environment {
-        ADAPTER_NAME = "abc-adapter-service"
+        ADAPTER_NAME = "om-abc-adapter-service"
         GIT_URL = "https://github.com/rohitjadhav89/om-abc-service-adapter.git"
         JFROG_REGISTRY = "trialn07m4a.jfrog.io"
         JFROG_NAMESPACE = "docker-local"
