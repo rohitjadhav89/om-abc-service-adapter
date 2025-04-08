@@ -1,0 +1,237 @@
+replicaCount: 1
+
+image:
+  name: om/partner-service-adapter
+  tag: 4.0.1
+
+global:
+  image:
+    registry: 242056669245.dkr.ecr.us-east-1.amazonaws.com
+    pullPolicy: Always
+
+imagePullSecrets: []
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations:
+  prometheus.io/scrape: ""
+  prometheus.io/port: ""
+  prometheus.io/path: ""
+  sidecar.jaegertracing.io/inject: "true"
+
+envCfg:
+  releaseName: "quantum_integration_cfg"
+  releaseVersion: ""
+  envVals: |-
+    env_cfg26.name=Partner
+    env_cfg26.entry.value=\
+      {\
+        "category"\:"fulfillmentSystem",\
+        "entries"\:\
+        {\
+          "$stubMode"\:"success"\
+        }\
+      }
+    env_cfg26.entry.desc=dbrm Configuration.
+    env_cfg26.entry.value_class=
+    env_cfg26.entry.renderer_class
+
+podSecurityContext: {}
+# fsGroup: 2000
+
+securityContext:
+  runAsUser: 1001
+  runAsGroup: 1001
+  fsGroup: 1001
+
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: 750m
+    memory: 1200Mi
+  requests:
+    cpu: 500m
+    memory: 1024Mi
+
+targetPort: 9059
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+
+schema:
+  schemaRegistryUrl: http://schema-registry-cp-schema-registry.schema-registry.svc.cluster.local:8081
+
+git:
+  local: false
+  localpath: /home/ec2-user/om-cfg.git/
+  username: sadmin
+  password: sadmin
+  repo: http://om-gitcontainer-service.om.svc.cluster.local:8080/cfgserver/om-cfg.git
+
+omProperties:
+  orderUrl: http://om-order-service.om.svc.cluster.local:9000/orderservice
+  activityUrl: http://om-activity-service.om.svc.cluster.local:11000/activityservice
+  configurationUrl: http://om-configuration-service.om.svc.cluster.local:14000/configurationservice
+  entitySpecUrl: http://om-entity-spec-service.om.svc.cluster.local:9014/entityspecservice
+
+ssl:
+  keystore:
+    filepath: keystore.jks
+    type: JKS
+  truststore:
+    filepath: truststore.ts
+    type: JKS
+
+livenessProbe:
+  httpGet:
+    path: /partner/om/api/manage/health
+    port: 9059
+  initialDelaySeconds: 1
+  periodSeconds: 30
+
+startupProbe:
+  httpGet:
+    path: /partner/om/api/manage/health
+    port: 9059
+  periodSeconds: 5
+  failureThreshold: 60
+
+sysprops:
+  maxRestResponseSizeInMb:
+  maxRestRequestSizeInMb:
+  mdCfgDir: ""
+  instCfgFile: ""
+  jdbcCfgFile: ""
+  cfgmgrCfgPath: ""
+  cfgmgrInstallFile: ""
+  mdNodeName: ""
+
+naming:
+  tenant: core
+  env: dev
+
+spring:
+  datasourceUrl: jdbc:postgresql://aurora-cluster-tf.cluster-ctxb1bmlvpsf.eu-west-1.rds.amazonaws.com:5432/om_dev
+  username: postgres
+  #username: postgres
+  password: welcome123
+  liquibase:
+    defaultSchema: soi_service
+  hikari:
+  kafka:
+    consumer:
+    producer:
+      transactional:
+      nonTransactional:
+
+entitySpecReload:
+  batchSize: 50
+  pollInterval: 10000
+  readLockWaitTime: 5000
+
+kafka:
+  bootstrapServers: b-1.cnmskcsdpresalescn.b1f1hi.c20.kafka.us-east-1.amazonaws.com:9094,b-2.cnmskcsdpresalescn.b1f1hi.c20.kafka.us-east-1.amazonaws.com:9094
+  persistMessageToDB: true
+  topic:
+    default:
+      consumers: 1
+      partitions: 3
+      replication_factor: 1
+      retry_count: 3
+      retry_delay: 10000
+    request:
+      consumers: 1
+      partitions: 3
+      replication_factor: 1
+      retry_count: 3
+      retry_delay: 10000
+    request_error:
+      consumers: 1
+      partitions: 3
+      replication_factor: 1
+      retry_count: 3
+      retry_delay: 10000
+    stop:
+      consumers: 1
+      partitions: 3
+      replication_factor: 1
+      retry_count: 3
+      retry_delay: 10000
+    reply:
+      consumers: 1
+      partitions: 3
+      replication_factor: 1
+      retry_count: 3
+      retry_delay: 10000
+
+entitySpecCache:
+  enabled: true
+  timeToIdleSeconds: 300
+  maxEntriesLocalHeap: 100
+  maxEntriesLocalDisk: 0
+  timeToLiveSeconds: 0
+  statistics: false
+  compressObjects: false
+
+entitySpecDBCache:
+  enabled: true
+  timeToIdleSeconds: 300
+  maxEntriesLocalHeap: 200
+  maxEntriesLocalDisk: 0
+  timeToLiveSeconds: 0
+  statistics: false
+  compressObjects: false
+
+
+jaegerAgent:
+  port: 6831
+  # Optional, use it in case of jaeger install as sidecar
+  #host: localhost
+jaeger:
+  enable: false
+  header: om-trace-id
+  sampler:
+    type: const
+    param: 1
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+logback:
+  logger:
+    - name:
+      loglevel:
+
+secrets:
+  mountSecret:
+    name: ssl-keystore-cert
+  envSecret:
+    name: order-soi-authz-secret
+    keys:
+      dbuserkey: spring_datasource_username
+      dbpasswordkey: spring_datasource_password
+      truststorepassword: truststorepass
+      keystorepassword: keystorepass
+
+java:
+  javaOpts: "-Xmx1024m -Xms800m -XX:NewSize=512m -XX:MaxNewSize=512m -Xss4m -Djavax.net.ssl.keyStore=/home/application/config/certs/keystore.jks -Djavax.net.ssl.keyStorePassword=changeit -Djavax.net.ssl.trustStore=/home/application/config/certs/truststore.ts -Djavax.net.ssl.trustStorePassword=changeit"

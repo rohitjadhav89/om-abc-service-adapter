@@ -1,0 +1,215 @@
+apiVersion: v1
+kind: ConfigMap
+data:
+  application.properties: |
+
+    spring.application.name=om-partner-service-adapter
+    server.port=9059
+    server.servlet.context-path=/partner
+    server.error.include-message=always
+
+    spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+    spring.jpa.hibernate.ddl-auto=none
+
+    spring.datasource.url={{ required "spring.datasourceUrl is required" .Values.spring.datasourceUrl }}?currentSchema={{required "spring.liquibase.defaultSchema is required" .Values.spring.liquibase.defaultSchema }}
+    spring.datasource.username=ompresales02
+    spring.datasource.password=presalescn123
+    spring.datasource.driver-class-name=org.postgresql.Driver
+    spring.sql.init.mode=always
+    spring.liquibase.enabled=false
+
+
+    spring.kafka.consumer.session-timeout-ms=10000
+    spring.kafka.consumer.max-poll-interval-ms=300000
+    spring.kafka.consumer.max-poll-records=500
+    {{ .Values.spring.kafka.consumer | default "" | nindent 4 }}
+    spring.kafka.consumer.bootstrap-servers={{ required "kafka.bootstrapServers is required" .Values.kafka.bootstrapServers }}
+    spring.kafka.consumer.group-id=${om.naming.prefix}partner_adapter_group
+    spring.kafka.consumer.auto-offset-reset=earliest
+    spring.kafka.consumer.key-deserializer=org.apache.kafka.common.serialization.StringDeserializer
+    spring.kafka.consumer.value-deserializer=io.confluent.kafka.serializers.KafkaAvroDeserializer
+    spring.kafka.consumer.isolation-level=read_committed
+    spring.kafka.consumer.enable-auto-commit=false
+
+    spring.kafka.properties.schema-registry-url={{ required "schema.schemaRegistryUrl is required" .Values.schema.schemaRegistryUrl }}
+
+    spring.kafka.producer[0].batch.size=16384
+    spring.kafka.producer[0].linger.ms=1
+    spring.kafka.producer[0].buffer.memory=33554432
+    spring.kafka.producer[0].enable.idempotence=true
+    spring.kafka.producer[0].retries=1
+    spring.kafka.producer[0].acks=all
+    spring.kafka.producer[0].bean-name=kafkaProducerTransactional
+    {{ .Values.spring.kafka.producer.transactional | default "" | nindent 4 }}
+    spring.kafka.producer[0].bootstrap-servers={{ required "kafka.bootstrapServers is required" .Values.kafka.bootstrapServers }}
+    spring.kafka.producer[0].properties.transactional-id=${om.naming.prefix}partner-adpt-tx-${HOSTNAME}
+    spring.kafka.producer[0].key-serializer=org.apache.kafka.common.serialization.StringSerializer
+    spring.kafka.producer[0].value-serializer=io.confluent.kafka.serializers.KafkaAvroSerializer
+
+    spring.kafka.producer[1].bootstrap-servers={{ required "kafka.bootstrapServers is required" .Values.kafka.bootstrapServers }}
+    spring.kafka.producer[1].key-serializer=org.apache.kafka.common.serialization.StringSerializer
+    spring.kafka.producer[1].value-serializer=io.confluent.kafka.serializers.KafkaAvroSerializer
+    spring.kafka.producer[1].batch.size=16384
+    spring.kafka.producer[1].linger.ms=1
+    spring.kafka.producer[1].buffer.memory=33554432
+    spring.kafka.producer[1].enable.idempotence=true
+    spring.kafka.producer[1].retries=1
+    spring.kafka.producer[1].acks=all
+    spring.kafka.producer[1].bean-name=kafkaProducerNonTransactional
+    {{ .Values.spring.kafka.producer.nonTransactional | default "" | nindent 4 }}
+    
+    kafka.ssl.keystore-location=/home/application/conf/certs/{{ .Values.ssl.keystore.filepath }}
+    kafka.ssl.keystore-password={{ printf "${%s}" .Values.secrets.envSecret.keys.keystorepassword }}
+    kafka.ssl.keystore-type={{ .Values.ssl.keystore.type }}
+    kafka.ssl.truststore-location=/home/application/conf/certs/{{ .Values.ssl.truststore.filepath }}
+    kafka.ssl.truststore-password={{ printf "${%s}" .Values.secrets.envSecret.keys.truststorepassword }}
+    kafka.ssl.truststore-type={{ .Values.ssl.truststore.type }}
+    kafka.ssl.key-password={{ printf "${%s}" .Values.secrets.envSecret.keys.keystorepassword }}
+    spring.kafka.ssl.protocol=SSL
+    spring.kafka.security.protocol=SSL
+    
+    #logging configuration
+    logging.config=/home/application/config/logback.xml
+
+    # om naming convention specific properties
+    om.naming.prefix={{- include "om.namingPrefix" . }}
+
+    # om specific properties
+    om.service.activity.url= {{ .Values.omProperties.activityUrl }}
+    om.service.order.url= {{ .Values.omProperties.orderUrl }}
+    om.service.configuration.url={{ .Values.omProperties.configurationUrl }}
+    om.service.entity.spec.url={{ .Values.omProperties.entitySpecUrl }}
+    om.kafka.consumer.enabled=true
+    om.kafka.producer.enabled=true
+    om.kafka.enable_error_handing=true
+    om.kafka.persist_message_to_db={{ .Values.kafka.persistMessageToDB | default true }}
+    om.database.enabled=true
+
+    # om kafka default properties
+    om.kafka.topic.consumers.default={{ .Values.kafka.topic.default.consumers }}
+    om.kafka.topic.partitions.default={{ .Values.kafka.topic.default.partitions }}
+    om.kafka.topic.replication_factor.default={{ .Values.kafka.topic.default.replication_factor }}
+    om.kafka.topic.retry_count.default={{ .Values.kafka.topic.default.retry_count }}
+    om.kafka.topic.retry_delay.default={{ .Values.kafka.topic.default.retry_delay }}
+    om.kafka.topic.enable_default_error_handing.default=false
+    om.kafka.topic.create_factory=false
+    om.kafka.topic.create_topic=false
+
+    # om system properties
+    om.sysprops.maxRestResponseSizeInMb={{ .Values.sysprops.maxRestResponseSizeInMb | default 100 }}
+    om.sysprops.maxRestRequestSizeInMb={{ .Values.sysprops.maxRestRequestSizeInMb | default 100 }}
+    om.sysprops.nodeType=soi_adapter
+    om.sysprops.domainCfgRequired=true
+    om.sysprops.md.cfg.dir={{ .Values.sysprops.mdCfgDir | default "/home/application/config" }}
+    om.sysprops.jdbc.cfg.file={{ .Values.sysprops.jdbcCfgFile | default "install.properties" }}
+    om.sysprops.cfgmgr.cfg.path={{ .Values.sysprops.cfgmgrCfgPath | default "/tmp/application/config" }}
+    om.sysprops.cfgmgr.install.file={{ .Values.sysprops.cfgmgrInstallFile | default "/home/application/config/install.properties" }}
+    om.sysprops.md.node.name=${om.naming.prefix}{{ .Values.sysprops.mdNodeName | default "partner_service_adapter_1" }}
+
+    #om soi adapters
+    om.soi.adapter.name=Partner
+    om.soi.adapter.lifecycle_class=com.sigma.om.soi.framework.listener.DefaultSOILifeCycleListener
+    om.soi.topic.name.prefix=${om.naming.prefix}com.sigma.om.soi.
+    om.soi.topic.request.suffix=.request
+    om.soi.topic.stop.suffix=.stop
+    om.soi.topic.reply.suffix=.reply
+    om.soi.topic.request_error.suffix=.request_error
+
+    # om producer topic properties
+    # om SOIEnrichmentEvent topic properties
+    om.kafka.topic.soi_enrichment.name=${om.naming.prefix}com.sigma.om.core.soi.SOIEnrichmentEvent
+    om.kafka.topic.soi_enrichment.message_class=com.sigma.om.event.message.soi.SOIEnrichmentEventMessage
+    om.kafka.topic.soi_enrichment.producer_config=true
+
+    # om consumer topic properties
+    # om soi request topic properties
+    om.kafka.topic.request.name=${om.soi.topic.name.prefix}${om.soi.adapter.name}${om.soi.topic.request.suffix}
+    om.kafka.topic.request.consumer_config=true
+    om.kafka.topic.request.groupId=${spring.kafka.consumer.group-id}
+    om.kafka.topic.request.partitions={{ .Values.kafka.topic.request.partitions }}
+    om.kafka.topic.request.consumers={{ .Values.kafka.topic.request.consumers }}
+    om.kafka.topic.request.replication_factor={{ .Values.kafka.topic.request.replication_factor }}
+    om.kafka.topic.request.retry_count={{ .Values.kafka.topic.request.retry_count }}
+    om.kafka.topic.request.retry_delay={{ .Values.kafka.topic.request.retry_delay }}
+    om.kafka.topic.request.create_factory=true
+    om.kafka.topic.request.create_topic=false
+
+    # om soi request error topic properties
+    om.kafka.topic.request_error.name=${om.soi.topic.name.prefix}${om.soi.adapter.name}${om.soi.topic.request_error.suffix}
+    om.kafka.topic.request_error.consumer_config=true
+    om.kafka.topic.request_error.groupId=${spring.kafka.consumer.group-id}
+    om.kafka.topic.request_error.partitions={{ .Values.kafka.topic.request_error.partitions }}
+    om.kafka.topic.request_error.consumers={{ .Values.kafka.topic.request_error.consumers }}
+    om.kafka.topic.request_error.replication_factor={{ .Values.kafka.topic.request_error.replication_factor }}
+    om.kafka.topic.request_error.retry_count={{ .Values.kafka.topic.request_error.retry_count }}
+    om.kafka.topic.request_error.retry_delay={{ .Values.kafka.topic.request_error.retry_delay }}
+    om.kafka.topic.request_error.create_factory=true
+    om.kafka.topic.request_error.create_topic=false
+
+    # om soi stop topic properties
+    om.kafka.topic.stop.name=${om.soi.topic.name.prefix}${om.soi.adapter.name}${om.soi.topic.stop.suffix}
+    om.kafka.topic.stop.consumer_config=true
+    om.kafka.topic.stop.groupId=${spring.kafka.consumer.group-id}
+    om.kafka.topic.stop.partitions={{ .Values.kafka.topic.stop.partitions }}
+    om.kafka.topic.stop.consumers={{ .Values.kafka.topic.stop.consumers }}
+    om.kafka.topic.stop.replication_factor={{ .Values.kafka.topic.stop.replication_factor }}
+    om.kafka.topic.stop.retry_count={{ .Values.kafka.topic.stop.retry_count }}
+    om.kafka.topic.stop.retry_delay={{ .Values.kafka.topic.stop.retry_delay }}
+    om.kafka.topic.stop.create_factory=true
+    om.kafka.topic.stop.create_topic=false
+
+    # om soi reply topic properties
+    om.kafka.topic.reply.name=${om.soi.topic.name.prefix}${om.soi.adapter.name}${om.soi.topic.reply.suffix}
+    om.kafka.topic.reply.consumer_config=true
+    om.kafka.topic.reply.groupId=${spring.kafka.consumer.group-id}
+    om.kafka.topic.reply.partitions={{ .Values.kafka.topic.reply.partitions }}
+    om.kafka.topic.reply.consumers={{ .Values.kafka.topic.reply.consumers }}
+    om.kafka.topic.reply.replication_factor={{ .Values.kafka.topic.reply.replication_factor }}
+    om.kafka.topic.reply.retry_count={{ .Values.kafka.topic.reply.retry_count }}
+    om.kafka.topic.reply.retry_delay={{ .Values.kafka.topic.reply.retry_delay }}
+    om.kafka.topic.reply.create_factory=true
+    om.kafka.topic.reply.create_topic=false
+    om.kafka.topic.reply.message_class=com.sigma.om.event.message.interaction.InteractionEventMessage
+
+    # entity spec repository caching configuration
+    om.entity.spec.cache.enabled={{ .Values.entitySpecCache.enabled | default false }}
+    om.entity.spec.cache.timeToIdleSeconds={{ .Values.entitySpecCache.timeToIdleSeconds | default 300 }}
+    om.entity.spec.cache.maxEntriesLocalHeap={{ .Values.entitySpecCache.maxEntriesLocalHeap | default 100 }}
+    om.entity.spec.cache.maxEntriesLocalDisk={{ .Values.entitySpecCache.maxEntriesLocalDisk | default 0 }}
+    om.entity.spec.cache.timeToLiveSeconds={{ .Values.entitySpecCache.timeToLiveSeconds | default 0 }}
+    om.entity.spec.cache.statistics={{ .Values.entitySpecCache.statistics | default false }}
+    om.entity.spec.cache.compressObjects={{ .Values.entitySpecCache.compressObjects | default false }}
+
+    # entity spec DB repository caching configuration
+    om.entity.spec.db.cache.enabled={{ .Values.entitySpecDBCache.enabled | default false }}
+    om.entity.spec.db.cache.timeToIdleSeconds={{ .Values.entitySpecDBCache.timeToIdleSeconds | default 300 }}
+    om.entity.spec.db.cache.maxEntriesLocalHeap={{ .Values.entitySpecDBCache.maxEntriesLocalHeap | default 100 }}
+    om.entity.spec.db.cache.maxEntriesLocalDisk={{ .Values.entitySpecDBCache.maxEntriesLocalDisk | default 0 }}
+    om.entity.spec.db.cache.timeToLiveSeconds={{ .Values.entitySpecDBCache.timeToLiveSeconds | default 0 }}
+    om.entity.spec.db.cache.statistics={{ .Values.entitySpecDBCache.statistics | default false }}
+    om.entity.spec.db.cache.compressObjects={{ .Values.entitySpecDBCache.compressObjects | default false }}
+
+    # om Jaeger Tracing properties
+    spring.data.tracing.header={{ .Values.jaeger.header }}
+    spring.data.tracing.enable={{ .Values.jaeger.enable }}
+    spring.data.jaeger.sampler.type={{ .Values.jaeger.sampler.type }}
+    spring.data.jaeger.sampler.param={{ .Values.jaeger.sampler.param }}
+    spring.data.jaeger.log-spans=true
+    opentracing.spring.cloud.jdbc.withActiveSpanOnly=true
+
+    #entity spec reload properties
+    om.entity.spec.batch.size={{ .Values.entitySpecReload.batchSize | default 50 }}
+    om.entity.spec.polling.interval={{ .Values.entitySpecReload.pollInterval | default 10000 }}
+    om.entity.spec.read.lock.wait.time={{ .Values.entitySpecReload.readLockWaitTime | default 5000 }}
+
+    # Properties for monitoring
+    management.endpoints.web.exposure.include=health,info,metrics,prometheus
+    management.endpoints.web.exposure.exclude=env,beans
+    management.metrics.tags.application=${spring.application.name}
+    management.endpoints.web.base-path=/om/api/manage
+    management.health.elasticsearch.enabled=false
+
+metadata:
+  name: {{ include "om.fullname" . }}-application-config
+  namespace: {{ .Release.Namespace }}
+ 

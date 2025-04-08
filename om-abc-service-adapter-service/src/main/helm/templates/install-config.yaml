@@ -1,0 +1,186 @@
+apiVersion: v1
+kind: ConfigMap
+data:
+  install.properties: |
+
+    ###################################################################################################
+    # OM installation properties - the path to this file must be passed to the 'installOM' installation
+    # utility that is packaged with sigma OM.  The installation utility is intended to be run from the
+    # directory that OM will be started from.
+    ###################################################################################################
+
+    # The directory that the installation utility will output the generated CfgMgr.properties file to.
+    # This should be the same directory that OM uses when searching for an initial configuration for
+    # the configuration manager, generally the value of the 'cfgmgr.cfg.path' system property.  Nothing
+    # is required to be in this directory initially.
+    cfgmgr.cfg_dir=/tmp/application/config
+
+    # The directory that the installation script will output the generated environment repository
+    # directory and working directory to.  When run, the installation utility will create two
+    # directories under this directory representing the environment repository and the configuration
+    # repository.  Nothing is required to be in this directory initially, it may be anywhere on the
+    # filesystem that is accessible to the OM runtime.
+    #
+    # This property is ignored if this file is configured to use a custom repository configutation for
+    # the environment; i.e. if there is one or more property starting with 'env_cfgmgr.' (described
+    # elsewhere in this file).
+    cfgmgr.env_dir=/tmp/application
+
+    ###################################################################################################
+    # All properties with the 'env_cfgmgr.'  prefix are considered property values to be used in
+    # specifying the repository configuration for the base environment configuration manager.  Each
+    # property becomes a standard configuration manager property (CfgMgr.properties), without the
+    # 'env_cfgmgr.' prefix.
+    #
+    # If any of these values are present, the 'cfgmgr.env_dir' property is ignored and its
+    # functionality is replaced by values indicated by these parameters.
+    ###################################################################################################
+
+    # The directory to use for storing workspaces (working copies of a repository).  Nothing is
+    # required to be in this directory initially and it is not required to exist; it may be anywhere on
+    # the filesystem that is accessible to the OM runtime.
+    #env_cfgmgr.cfgmgr.basedir=
+
+    # The source repository for the base environment configuration.
+    #env_cfgmgr.cfgmgr.source_uri=ssh\://user1@torws-andrewqu.sigmasys.net\:29419/omp_environment.git
+    #env_cfgmgr.cfgmgr.source_uri=https\://torws-andrewqu.sigmasys.net\:8444/r/omp_environment.git
+    #env_cfgmgr.cfgmgr.source_uri=
+
+    # If the private key file is encrypted, this value is necessary to decrypt it.
+    #
+    # This value is only used if the source URI uses the SSH protocol.
+    #env_cfgmgr.ssh.identity_password=
+
+    # An entry matching a value that would go in an SSH 'known_hosts' file, with the source
+    # repository's host/port and public key.
+    #
+    # This value is only used if the source URI uses the SSH protocol.
+    #env_cfgmgr.ssh.known_host_entry=
+
+    # The actual private key (possibly, encrypted) that the client configuration manager will use to
+    # authenticate with the source repository.
+    #
+    # This value is only used if the source URI uses the SSH protocol.
+    #env_cfgmgr.ssh.private_key=-----BEGIN RSA PRIVATE KEY-----\nProc-Type\: 4,ENCRYPTED\nDEK-Info\: AES-128-CBC,B745906FF13B827B3282F9873F39CCE5\n\nrEg+fVzpIo7QGZbhb8mEV36AWLtumhuT9lk0t09R0QCW81Gj49gP+8sritejVUtL\nzC4BdAi6Jz3goTHrowjrrwfE4QZj8jrWj+/ZK+/E7bAsXkHIm70WLmAztjKkmSBW\nMYOTgJPJ1lD31xZFZmcQKg24DXYZMnlfenWWmvcRTB6on7i1scsRDkF8YnpmQwvo\nizd/sVUpDFD3gLDk+awki95mVelnu4r5jldZW6d4dnm1sutaUuv/LnGas5LUBCS8\nluk9ZinOka8rqs6CrZW3CdfzfpdOEqO4JVPsnA3yL4v98NXTyKcoBgiBduwMZrWe\nQADOp3U2O0ZA2Nv7XTNNVurd7bvsR7K8a+PUl1sS5SbfO/hkSOZUtPIjmUcnOLZ7\nz2SWUP1TzT30VvT1VhmQ2mPOOFWRtcf+P7pBEddJxCVlwXasbdkY4hAZO14/yl1N\n92fPuqwG2kSj4H59enkfbofpYCZKSO8K0cbgep4oblzlDtd0ADE5RTCutGKAdiaB\nT3GTMQ/bO+tRVRDYZL53sETNeocbzCcw1h1+fEGTqRp5zB6MJtYTtxKht3eYbPPE\nGViRf8Ycijqh6nyghBSBJ6/QxRxQO3YWzq1f5XKNY6xXygcWIrcI0njX7qDkUxdF\nS/MjbAAMbGB9bShcMtBvMWIQhzfjit42pGQQVXT8gPrnAQ/jeuGuGQExsKhXyt/v\nCnx3hGHEf7ZVVWkIQlj00X9dyQQhMu/pToLtZamtpklf6CtOJUPaguV7OWo36Ouv\nu9M1iSfGbmmBewk1I5piuwJy/1suvsu7grtoFiy4AJDoE5eJmknFR7bbLUzrM6Zu\nhQcjjSGyRwBtdg1QS3IPSfpMUh/J5JET1IypZmkUZndwuetnrdqJIY+eQ4tf/jP2\nO6RuL1ENTa+kZX2Z2jphq6CDsr/bPzxtop69jh3ysy3lU8FrczCJqmwDJTHvlZKA\nTnt/O+sa+3jdw8el974DcZ4BKoZtQaTp2V9GpcIacv+Q/eMPF5MhHpLjV1Lh598G\n4GVGNSC5yATR4l7A/Y34n7NISUzhZCw3Tuu8JCOzD5iKUpBqtcOS9mLY19NSALud\nhK7ANX+AE2RUvAHlCSkEpk4xR4VkAQxfqYhzg1i1ybPOKYzxjqTFLJlp/tXsH8Lh\nO1yPtDK1oVc7fMhOmQloxtnkX6jfZoL4LCNexZ/hoLb+SAOH38f8U8sLujIonYLp\n0zw7bEP9lyO9wSgzxp2S87OkYIukdaA1DULDqB/NsETOAGyPP2agGwVJOmxOm0d6\n6yZdAiSuQCEfuDXI3dBBQs6n/euqkxG+kKkSi1rWb2A9Jd2071iCcYVOQP5mXart\noyjCQjNWihEShu11kTlE/SxVPuzomopz80JvSFYUOrrmgfRrwy5YmhgIPKQcvPCz\n1sFBbwV58SlWUL4hxU9sWa3MfWjE/8XkOvpRucJ8js6Py8Nu5yXUkCV7g63whX+j\nxhiGlUvUy6fOkOkFEQGjn2/5MKfd80Bw4iujU8we7sOl21qgKfsDjYpkOSw6RM2Q\nonuptLACEGFn8e365HVjHo3sLi6Jk0hYiKDyYZ9UM7gkxl+3xI0/BlywymDmHBvR\n-----END RSA PRIVATE KEY-----\n
+
+    ###################################################################################################
+    # All properties with the 'domain_cfg.' prefix are considered property values to be used in
+    # specifying an initial domain repository for the configuration manager.  Each entry will be copied
+    # to the domain repository's configuration in the generated environment repository using the
+    # property name with the 'domain_cfg.' prefix removed.
+    #
+    # All properties with the 'domain_cfg#.' prefix pattern represent additional repositories that will
+    # be configured automatically. All entries with the same number pattern (the '#' portion) represent
+    # properties for one particular repository.
+    ###################################################################################################
+  
+    # The directory to use for storing workspaces (working copies of a domain repository).  Nothing is
+    # required to be in this directory initially, it may be anywhere on the filesystem that is
+    # accessible to the OM runtime.
+    domain_cfg.cfgmgr.basedir=/tmp/application/git-workspace
+
+    # The URI indicating where the domain repository is located, this may be a relative filesystem
+    # path, absolute filesystem path, SSH URI or file URI.  The installation utility assumes that this
+    # is a valid, preexisting Git repository.
+
+   {{- if .Values.git.local }}
+    
+    domain_cfg.cfgmgr.source_uri=/home/application/git/git-workspace
+
+    {{- else }}
+    
+    domain_cfg.cfgmgr.source_uri={{ required "git.repo is required" .Values.git.repo }}
+    
+    #GIT username
+    domain_cfg.cfgmgr.userName= {{ .Values.git.username }}
+
+    #GIT Password
+    domain_cfg.cfgmgr.password= {{ .Values.git.password }}
+    
+    {{- end }}
+
+    # The filesystem path to the SSH identity file (ssh-keygen) to use for authenticating against an
+    # SSH URI.  This value is only used if the source URI is an SSH URI is assumed to already exist by
+    # the installation utility.  An ssh repository configuration can have either this value or a
+    # 'ssh.private_key' value, not both; they have the same purpose - this parameter indicates a
+    # private key file and the other indicates the inline contents of a private key.
+    domain_cfg.ssh.identity_file=
+
+    # The filesystem path to the SSH identity file (ssh-keygen) to use for authenticating against an
+    # SSH URI.  This value is only used if the source URI is an SSH URI is assumed to already exist by
+    # the installation utility.  An ssh repository configuration can have either this value or a
+    # 'ssh.identity_file' value, see the description above for more information.
+    #domain_cfg.ssh.private_key=-----BEGIN RSA PRIVATE KEY-----...-----END RSA PRIVATE KEY-----\n
+
+    # If the SSH identity file is encrypted, a password may be specified.  This value is only used if
+    # the source URI is an SSH URI.
+    domain_cfg.ssh.identity_password=
+
+    # The contents of a known_host entry for the server indicated by an SSH URI (see
+    # ~/.ssh/known_hosts in UNIX systems).  This value is only used if the source URI is an SSH URI.
+    domain_cfg.ssh.known_host_entry=
+
+    # The configuration for the OMP demo repository on torvm-git01.
+    #domain_cfg1.cfgmgr.basedir=torvm_workinggit
+    #domain_cfg1.cfgmgr.source_uri=ssh\://USER@torvm-git01\:29418/om/om-cfg-clocktower.git
+    #domain_cfg1.ssh.identity_file=
+    #domain_cfg1.ssh.identity_password=
+    #domain_cfg1.ssh.known_host_entry=[torvm-git01]\:29418 ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAuYFJLavsjsViUjxBxHvRDwUSiDY2VH1HXvoREJ7j/5PU9+OMkyhCnQua5M4a7nCb0PI8FSFUvaBZv0Gf4HLAHvYXFBQHiK9sY/T0Cpb9QHMe1yVbGVjnQp6JkM0he6xac7k0vVOKFrwS0U1sIVSiiYf5ijy47UUD+ZUn9YP0qxXhHG4r2Bqwn9MZo7wB8W8w9jUfrTDYn4fWFfcBoCfXc81xbbeyky0RmDp6PqjIbuZEQ2WFGHoO+JXaGcpnQNSZXQlWOuUUcAZECHoz4GYSev9qRrmJ2fwyU3HDd9TwYoLEr9ObC1SoZqOF6dHXTAc0YQ51pmXbSPPk6UfwgMlEJQ\=\=
+
+    # Entries with the pattern 'domain_name#' represent a unique name that may be assigned to the
+    # repository with the same number portion (eg. domain_cfg1... could be named by domain_name1).
+    #domain_name1=OMP Master Demo Domain
+
+    ###################################################################################################
+    # All properties with the 'env_cfg#.' prefix are considered to be standard environment
+    # configuration entries.  Entries whose numbers (the # section of 'env_cfg#.') have the same value
+    # are considered to be properties of the same configuration entry.
+    ###################################################################################################
+
+    # The unique name of an environment configuration entry.  This value is used to query, update and
+    # display the configuration entry.
+    #env_cfg0.name=EXAMPLE_ENTRY_01
+
+    # The JSON serialized representation of this configuration entry's value, this data is used to
+    # construct an in-memory object (identified by a class name elsewhere in this entry); the validity
+    # of this data depends on the in-memory class used to represent the entry.  If omitted, no object
+    # is initialized to represent this entry.
+    #env_cfg0.entry.value={"canDelete"\:true,"canEdit"\:true,"canView"\:true,"entries"\:{"first"\:"value1","second"\:"value2","third"\:"value3"}}
+
+    # A description for this entry, used for display purposes (optional).
+    #env_cfg0.entry.desc=My example configuration entry.
+
+    # The fully qualified Java class name that will be used to represent this configuration object in
+    # memory.  This value is optional - if omitted, it defaults to a simple class that has an 'entries'
+    # attribute with a name/value mapping (see the 'value' entry above).
+    #
+    # Regardless of the value class, configuration entries will always have a common set of data
+    # including the boolean attributes 'canDelete', 'canEdit', and 'canView', which dictate the
+    # permissions in the environment configuration utility.  These values are optional, defaulting to
+    # true if they are left out; note that if a value of false for 'canView' implies that all
+    # permissions are revoked, and a false value for 'canEdit' implies that deletion is prohibited.
+    #env_cfg0.entry.value_class=com.sigma.om.envcfg.cfg.GenericCfg
+
+    # The fully qualified Java class name that will be used to render a user interface for viewing or
+    # editing this object.  The OM environment configuration utility will attempt to use this value for
+    # viewing/editing the entry, this will default to a standard description/value editor screen if
+    # omitted and the in-memory class was also omitted.
+    #env_cfg0.entry.renderer_class=
+
+    #
+    #env_cfg0.entry.visible=
+
+    # The configuration for associating new orders in OM with a release/version combination in the
+    # domain repository.
+    env_cfg1.name=NEW_ORDER_RELEASE
+    env_cfg1.entry.value={"category"\:"newOrder","canDelete"\:false,"releaseName"\:"{{ .Values.envCfg.releaseName }}","releaseVersion"\:"{{ .Values.envCfg.releaseVersion }}"}
+    #env_cfg1.entry.value={"category"\:"newOrder","canDelete"\:false,"releaseName"\:"","releaseVersion"\:""}
+    env_cfg1.entry.desc=Release and version that is to be used for new orders in OM.
+    env_cfg1.entry.value_class=com.sigma.om.envcfg.cfg.NewOrderRelease
+    env_cfg1.entry.renderer_class=views.html.envcfg.cfgNewOrderRelease
+
+    {{ .Values.envCfg.envVals | nindent 4 }}
+
+metadata:
+  name: {{ include "om.fullname" . }}-install-config
+  namespace: {{ .Release.Namespace }}
