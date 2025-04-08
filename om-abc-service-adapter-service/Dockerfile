@@ -1,15 +1,31 @@
-# Use official OpenJDK runtime as base image
-FROM eclipse-temurin:17-jre
+FROM hansentech.jfrog.io/ordermgmt-docker-releases/sigma_external/ubi-java:ubi8.8-1067.1698056881-openjdk17.0.9_9-LTS-Jgit5.0
+LABEL Maintainer="Hansen Technologies"
+ARG SERVICE_NAME
+LABEL Service=$SERVICE_NAME
 
-# Create application directory
-WORKDIR /app
+ARG UNAME=omuser
+ARG UID=1001
+ARG GID=1001
 
-# Copy the JAR file into the container
-# (Replace 'your-app.jar' with your actual JAR filename)
-COPY target/*.jar app.jar
+ENV JAVA_OPTS ""
 
-# Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+RUN groupadd -g $GID -o $UNAME && \
+    useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME  && \
+    mkdir -p /home/application/config
 
-# Expose the port your app runs on (change 8080 if needed)
-EXPOSE 8080
+RUN chown -R $UNAME:$UNAME /home/application
+USER $UNAME
+
+COPY adapter-conf/ /home/application/adapter-conf/
+
+WORKDIR /home/application/
+
+# To utilize the concept of caching, placing entrypoint before Jar Name as entrypoint will not change
+ENTRYPOINT ["/bin/bash", "-c", "java $JAVA_OPTS -jar $JAR_NAME"]
+
+ARG JAR_NAME
+ENV JAR_NAME $JAR_NAME
+
+ARG JAR_PATH
+ADD $JAR_PATH /home/application/
+#COPY target/classes/META-INF /home/application/licenses
