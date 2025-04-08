@@ -14,9 +14,138 @@
     </modules>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
+        <java.version>17</java.version>
+        <om-partner-build.version>${project.version}</om-partner-build.version>
+        <spring.boot.version>2.7.12</spring.boot.version>
+        <om-core.version>7.2.0</om-core.version>
+        <om-soi.version>7.2.0</om-soi.version>
+        <om.git.version>7.2.0</om.git.version>
+        <camel.version>7.2.0</camel.version>
+        <camel.stream.version>7.2.0</camel.stream.version>
+        <snapshot.repository>libs-snapshot-local</snapshot.repository>
+        <kafka.client.version>2.8.0</kafka.client.version>
+
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.license.plugin.version>2.0.0</maven.license.plugin.version>
+        <maven.iterator.plugin.version>0.5.1</maven.iterator.plugin.version>
+        <maven.assembly.plugin.version>3.1.1</maven.assembly.plugin.version>
+        <maven.dockerfile.plugin.version>1.4.10</maven.dockerfile.plugin.version>
+        <maven.exec.plugin.version>1.4.0</maven.exec.plugin.version>
+
+        <surefire.version>2.22.1</surefire.version>
+        <jacoco.version>0.8.10</jacoco.version>
+        <coverage>0</coverage>
+
+        <releaseDistRepo>https://hansentech.jfrog.io/artifactory/ps-dist-release-local</releaseDistRepo>
+        <snapshotDistRepo>https://hansentech.jfrog.io/artifactory/ps-dist-snapshot-local</snapshotDistRepo>
+        <helmRepoUrl>https://hansentech.jfrog.io/artifactory/ps-vm-helm/sigma_vm_slmp</helmRepoUrl>
     </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>${kafka.client.version}</version>
+                <scope>compile</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
+                            <outputDirectory>${basedir}/target/jacoco-aggregate-ut/jacoco.xml</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <title>Code Coverage of Unit Tests</title>
+                            <!--<outputDirectory>target/jacoco-aggregate-ut</outputDirectory>-->
+                            <rules>
+                                <rule>
+                                    <element>CLASS</element>
+                                    <limits>
+                                        <limit>
+                                            <counter>LINE</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>${coverage}</minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                            <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire.version}</version>
+                <configuration>
+                    <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>${surefire.version}</version>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <repositories>
+        <repository>
+            <id>ordermgmt-libs-snapshot</id>
+            <name>ordermgmt-libs-snapshot</name>
+            <url>https://hansentech.jfrog.io/artifactory/ordermgmt-libs-snapshot</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>ordermgmt-libs-release</id>
+            <name>ordermgmt-libs-release</name>
+            <url>https://hansentech.jfrog.io/artifactory/ordermgmt-libs-release</url>
+        </repository>
+    </repositories>
 
 </project>
