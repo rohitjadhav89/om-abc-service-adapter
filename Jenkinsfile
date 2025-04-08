@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Define your Artifactory and Docker environment variables
-        ARTIFACTORY_URL = 'https://trialn07m4a.jfrog.io/artifactory'  // Corrected the Artifactory URL format
+        ARTIFACTORY_URL = 'trialn07m4a.jfrog.io/artifactory'  // Corrected the Artifactory URL format
         ARTIFACTORY_REPO = 'docker-local' // Your Artifactory Docker repo
         ARTIFACTORY_CREDS = 'artifactory-credentials' // Jenkins credentials ID for Artifactory
         DOCKER_IMAGE = 'om-abc-service-adapter'
