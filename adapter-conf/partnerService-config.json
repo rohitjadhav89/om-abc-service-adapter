@@ -1,0 +1,1109 @@
+{
+	"description": "Siebel SOI mapping file",
+	"operations": [
+		{
+			"name": "CarNetflixService",
+			"sourcingInfo": {
+				"entities": [{
+						"entityName": "Car CFS",
+						"guid": "dab340d2-366f-4e3b-93e5-20a2e0a6998a",
+						"mappings": {
+							"id": "VINNumber",
+							"make": "Make",
+							"model": "Model",
+							"yearofManufacture": "Car manufacture year"
+						}
+					},
+					{
+						"entityName": "EN P1 Netflix",
+						"guid": "67131ba0-2ade-43f0-a66f-bbc5b5dbed00",
+						"mappings": {
+							"partnerName": "Partner Name"
+						}
+					}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+					"serviceName": "Activate Netflix"
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "CarSpotifyService",
+			"sourcingInfo": {
+				"entities": [{
+						"entityName": "Car CFS",
+						"guid": "dab340d2-366f-4e3b-93e5-20a2e0a6998a",
+						"mappings": {
+							"id": "VINNumber",
+							"make": "Make",
+							"model": "Model",
+							"yearofManufacture": "Car manufacture year"
+						}
+					},
+					{
+						"entityName": "EN P2 Spotify",
+						"guid": "1469272d-1d8e-4c9d-903a-616edd1ce6e4",
+						"mappings": {
+							"partnerName": "Partner Name"
+						}
+					}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+					"serviceName": "Activate Spotify"
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "CarAmazonPrimeService",
+			"sourcingInfo": {
+				"entities": [{
+						"entityName": "Car CFS",
+						"guid": "dab340d2-366f-4e3b-93e5-20a2e0a6998a",
+						"mappings": {
+							"id": "VINNumber",
+							"make": "Make",
+							"model": "Model",
+							"yearofManufacture": "Car manufacture year"
+						}
+					},
+					{
+						"entityName": "EN P3 Amazon Prime Video",
+						"guid": "1438a216-ebb9-4615-a8fe-03ea2b62767e",
+						"mappings": {
+							"partnerName": "Partner Name"
+						}
+					}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+					"serviceName": "Activate Amazon Prime Video"
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "CarDisneyPlusService",
+			"sourcingInfo": {
+				"entities": [{
+						"entityName": "Car CFS",
+						"guid": "dab340d2-366f-4e3b-93e5-20a2e0a6998a",
+						"mappings": {
+							"id": "VINNumber",
+							"make": "Make",
+							"model": "Model",
+							"yearofManufacture": "Car manufacture year"
+						}
+					},
+					{
+						"entityName": "EN P4 Disney Plus",
+						"guid": "fa40665d-2b02-48e2-8541-c90b46b40de8",
+						"mappings": {
+							"partnerName": "Partner Name"
+						}
+					}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+					"serviceName": "Activate Disney Plus"
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "CarAccurateLocationTracking",
+			"sourcingInfo": {
+				"entities": [{
+						"entityName": "Car CFS",
+						"guid": "dab340d2-366f-4e3b-93e5-20a2e0a6998a",
+						"mappings": {
+							"id": "VINNumber",
+							"make": "Make",
+							"model": "Model",
+							"yearofManufacture": "Car manufacture year"
+						}
+					},
+					{
+						"entityName": "FM P1 Accurate Location Tracking",
+						"guid": "5863a7f4-974e-47fc-a927-5b960c780f8f",
+						"mappings": {
+							"partnerName": "Partner Name"
+						}
+					}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+					"serviceName": "Activate Accurate Location Tracking"
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "CarPredictiveMaintenance",
+			"sourcingInfo": {
+				"entities": [{
+						"entityName": "Car CFS",
+						"guid": "dab340d2-366f-4e3b-93e5-20a2e0a6998a",
+						"mappings": {
+							"id": "VINNumber",
+							"make": "Make",
+							"model": "Model",
+							"yearofManufacture": "Car manufacture year"
+						}
+					},
+					{
+						"entityName": "FM P2 Predictive Maintenance",
+						"guid": "17ac1123-bb47-407d-905d-f22669636d35",
+						"mappings": {
+							"partnerName": "Partner Name"
+						}
+					}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+					"serviceName": "Activate Predictive Maintenance"
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "CarChargingStationLocator",
+			"sourcingInfo": {
+				"entities": [{
+						"entityName": "Car CFS",
+						"guid": "dab340d2-366f-4e3b-93e5-20a2e0a6998a",
+						"mappings": {
+							"id": "VINNumber",
+							"make": "Make",
+							"model": "Model",
+							"yearofManufacture": "Car manufacture year"
+						}
+					},
+					{
+						"entityName": "EVCI P1 Charging Station Locator",
+						"guid": "315ee9a1-a494-4b50-8d7d-ab86eb4801ea",
+						"mappings": {
+							"partnerName": "Partner Name"
+						}
+					}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+					"serviceName": "Activate Charging Station Locator"
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "CarEVOptimalRoute",
+			"sourcingInfo": {
+				"entities": [{
+						"entityName": "Car CFS",
+						"guid": "dab340d2-366f-4e3b-93e5-20a2e0a6998a",
+						"mappings": {
+							"id": "VINNumber",
+							"make": "Make",
+							"model": "Model",
+							"yearofManufacture": "Car manufacture year"
+						}
+					},
+					{
+						"entityName": "EVCI P2 EV Optimal Route",
+						"guid": "c10469ee-81bb-4e26-a86b-cb8baba1da4c",
+						"mappings": {
+							"partnerName": "Partner Name"
+						}
+					}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+					"serviceName": "Activate EV Optimal Route"
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "CarMonitorChargingProgress",
+			"sourcingInfo": {
+				"entities": [{
+						"entityName": "Car CFS",
+						"guid": "dab340d2-366f-4e3b-93e5-20a2e0a6998a",
+						"mappings": {
+							"id": "VINNumber",
+							"make": "Make",
+							"model": "Model",
+							"yearofManufacture": "Car manufacture year"
+						}
+					},
+					{
+						"entityName": "EVCI P3 Monitor Charging Progress",
+						"guid": "e24ac28f-be9f-408a-b030-a34ac103885b",
+						"mappings": {
+							"partnerName": "Partner Name"
+						}
+					}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+					"serviceName": "Activate Monitor Charging Progress"
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "CarCollisionDetection",
+			"sourcingInfo": {
+				"entities": [{
+						"entityName": "Car CFS",
+						"guid": "dab340d2-366f-4e3b-93e5-20a2e0a6998a",
+						"mappings": {
+							"id": "VINNumber",
+							"make": "Make",
+							"model": "Model",
+							"yearofManufacture": "Car manufacture year"
+						}
+					},
+					{
+						"entityName": "IS P1 Collision Detection",
+						"guid": "c74b525c-8fe8-4d20-ab51-67f1bd7d8824",
+						"mappings": {
+							"partnerName": "Partner Name"
+						}
+					}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+					"serviceName": "Activate Collision Detection"
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "CarStolenVehicleTracking",
+			"sourcingInfo": {
+				"entities": [{
+						"entityName": "Car CFS",
+						"guid": "dab340d2-366f-4e3b-93e5-20a2e0a6998a",
+						"mappings": {
+							"id": "VINNumber",
+							"make": "Make",
+							"model": "Model",
+							"yearofManufacture": "Car manufacture year"
+						}
+					},
+					{
+						"entityName": "IS P1 Stolen Vehicle Tracking",
+						"guid": "a0da8459-12e3-49b6-80f5-76e79a3bc5fc",
+						"mappings": {
+							"partnerName": "Partner Name"
+						}
+					}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+					"serviceName": "Activate Stolen Vehicle Tracking"
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "CarCustomInsuranceRates",
+			"sourcingInfo": {
+				"entities": [{
+						"entityName": "Car CFS",
+						"guid": "dab340d2-366f-4e3b-93e5-20a2e0a6998a",
+						"mappings": {
+							"id": "VINNumber",
+							"make": "Make",
+							"model": "Model",
+							"yearofManufacture": "Car manufacture year"
+						}
+					},
+					{
+						"entityName": "IS P2 Custom Insurance Rates",
+						"guid": "e54d55f9-57c6-43c3-aa70-c9e2d628730d",
+						"mappings": {
+							"partnerName": "Partner Name"
+						}
+					}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+					"serviceName": "Activate Custom Insurance Rates"
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "HomeSecurityCamera",
+			"sourcingInfo": {
+				"entities": [{
+						"entityName": "Home Security Camera RFS",
+						"guid": "85ded4bf-7c43-435e-8374-968b138ad06d",
+						"mappings": {
+							"equipmentId": "Equipment UIN",
+							"equipmentSubType": "Camera Type"
+						}
+					}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+					"equipmentType": "Home Security Camera",
+					"serviceName": "Activate Home Security Camera"
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "HomeSecuritySensors",
+			"sourcingInfo": {
+				"entities": [{
+						"entityName": "Home Security Sensor RFS",
+						"guid": "bd4fe1cb-8671-408a-afcd-11fba93b541f",
+						"mappings": {
+							"equipmentId": "Equipment UIN",
+							"equipmentSubType": "Sensor Type"
+						}
+					}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+					"equipmentType": "Home Security Sensors",
+					"serviceName": "Activate Home Security Sensors"
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "CloudDataService",
+			"sourcingInfo": {
+				"entities": [{
+					"entityName": "Cloud Data Store RFS",
+					"guid": "80662629-5880-4e0e-ad8c-87b5e9a0b0ec",
+					"mappings": {
+						"StorageSize": "Storage_Size",
+						"StorageType": "Storage_Type"
+					}
+				}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+					"serviceName": "Activate Cloud Data Service"
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "BroadbandActivation",
+			"sourcingInfo": {
+				"entities": [{
+						"entityName": "Evolution Broadband RFS",
+						"guid": "b373368f-eabc-4d8a-81f2-dae3cc5ccbaf",
+						"mappings": {
+							"equipmentId": "Modem Serial Number",
+							"make": "Manufacturer",
+							"model": "Model",
+							"yearofManufacture": "Year of Manufacture",
+							"serviceName": "Modem_Type",
+							"uplinkSpeed": "Uplink Speed",
+							"downlinkSpeed": "Downlink Speed"
+						}
+					}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "MobileActivation",
+			"sourcingInfo": {
+				"entities": [{
+						"entityName": "Evolution Mobile RFS",
+						"guid": "a16752ee-94e0-4953-942b-efd6f21691ad",
+						"mappings": {
+							"iMEINumber": "IMEI Number",
+							"serviceName": "Mobile Plan"
+						}
+					},
+					{
+						"entityName": "Standard Mobile Bronze RFS",
+						"guid": "5d342159-10cb-4d78-ab95-d40b5b0f66d7",
+						"mappings": {
+							"DataUsage" : "Data Usage",
+							"VoiceUsage" : "Voice Usage",
+							"SMSUsage" : "SMS Usage",
+							"ContractPeriod": "Contract Period"
+						}
+					},
+					{
+						"entityName": "Standard Mobile Gold RFS",
+						"guid": "81ab8840-90f6-408d-ae05-561ab450f95b",
+						"mappings": {
+							"DataUsage" : "Data Usage",
+							"VoiceUsage" : "Voice Usage",
+							"SMSUsage" : "SMS Usage",
+							"ContractPeriod": "Contract Period"
+						}
+					},
+					{
+						"entityName": "Standard Mobile Silver RFS",
+						"guid": "2eee010d-e19b-48da-b3d0-f14c79360d8b",
+						"mappings": {
+							"DataUsage" : "Data Usage",
+							"VoiceUsage" : "Voice Usage",
+							"SMSUsage" : "SMS Usage",
+							"ContractPeriod": "Contract Period"
+						}
+					}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "MobileInsurance",
+			"sourcingInfo": {
+				"entities": [
+					{
+						"entityName": "Evolution Mobile RFS",
+						"guid": "a16752ee-94e0-4953-942b-efd6f21691ad",
+						"mappings": {
+							"iMEINumber": "IMEI Number",
+							"plan": "Mobile Plan"
+						}
+					},
+					{
+						"entityName": "Insurance",
+						"guid": "4dba4c72-292d-420d-979a-c81dda843ea2",
+						"mappings": {
+							"partnerName": "Insurance_Provider",
+							"serviceName": "Premium Type"
+						}
+					}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "TVSTB",
+			"sourcingInfo": {
+				"entities": [{
+						"entityName": "Equipment",
+						"guid": "52410955-4365-4707-b972-922e14cdf489",
+						"mappings": {
+							"equipmentId": "Equipment Serial Number",
+							"equipmentSubType": "Equipment_Type"
+						}
+					}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+					"equipmentType": "STB",
+					"serviceName": "Activate STB"
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},{
+			"name": "TVChannelPacks",
+			"sourcingInfo": {
+				"entities": [{
+						"entityName": "Channel Packs",
+						"guid": "4deab761-5d30-47dd-a87d-34fc92aa7aec",
+						"mappings": {
+							"equipmentId": "Equipment Serial Number",
+							"serviceName": "Channels_Pack"
+						}
+					},
+					{
+						"entityName": "Equipment",
+						"guid": "52410955-4365-4707-b972-922e14cdf489",
+						"mappings": {
+							"equipmentId": "Equipment Serial Number",
+							"equipmentSubType": "Equipment_Type"
+						}
+					}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+					"equipmentType": "STB"
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "MPLSActivation",
+			"sourcingInfo": {
+				"entities": [{
+						"entityName": "Last Mile Access",
+						"guid": "97bf2d52-585f-4109-b903-792bc195e95b",
+						"mappings": {
+							"equipmentId": "Modem Serial Number",
+							"serviceName": "Last Mile Media",
+							"accessBandwidth": "Access Bandwidth",
+							"portBandwidth": "Port Bandwidth"
+						}
+					},
+					{
+						"entityName": "CPE Routers",
+						"guid": "ed1d1d96-9043-4218-bce0-e6c1361f4d4b",
+						"mappings": {
+							"make": "Router Make",
+							"model": "Router Model",
+							"yearofManufacture": "Year of Manufacture",
+							"uplinkSpeed": "Uplink Speed",
+							"downlinkSpeed": "Downlink Speed",
+							"routingProtocol": "Routing Protocol"
+						}
+					}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "EVPLActivation",
+			"sourcingInfo": {
+				"entities": [{
+					"entityName": "Last Mile access New",
+					"guid": "6ede51d5-9de7-4bd0-b4e4-176461699653",
+					"mappings": {
+						"equipmentId": "Modem Serial Number",
+						"serviceName": "Last Mile Media",
+						"accessBandwidth": "Access Bandwidth",
+						"portBandwidth": "Port Bandwidth"
+					}
+				},
+					{
+						"entityName": "CPE Routers",
+						"guid": "ed1d1d96-9043-4218-bce0-e6c1361f4d4b",
+						"mappings": {
+							"make": "Router Make",
+							"model": "Router Model",
+							"yearofManufacture": "Year of Manufacture",
+							"uplinkSpeed": "Uplink Speed",
+							"downlinkSpeed": "Downlink Speed",
+							"routingProtocol": "Routing Protocol"
+						}
+					}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "FIAActivation",
+			"sourcingInfo": {
+				"entities": [{
+					"entityName": "Last Mile access New",
+					"guid": "6ede51d5-9de7-4bd0-b4e4-176461699653",
+					"mappings": {
+						"equipmentId": "Modem Serial Number",
+						"serviceName": "Last Mile Media",
+						"accessBandwidth": "Access Bandwidth",
+						"portBandwidth": "Port Bandwidth"
+					}
+				},
+					{
+						"entityName": "CPE Routers",
+						"guid": "ed1d1d96-9043-4218-bce0-e6c1361f4d4b",
+						"mappings": {
+							"make": "Router Make",
+							"model": "Router Model",
+							"yearofManufacture": "Year of Manufacture",
+							"uplinkSpeed": "Uplink Speed",
+							"downlinkSpeed": "Downlink Speed",
+							"routingProtocol": "Routing Protocol"
+						}
+					}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "ActivateData",
+			"sourcingInfo": {
+				"entities": [{
+					"entityName": "4G Data Service",
+					"guid": "6ede51d5-9de7-4bd0-b4e4-176461699653",
+					"mappings": {
+
+						"MSISDN": "Modem Serial Number",
+						"IMSI": "Last Mile Media",
+						"DNN Identifier": "Access Bandwidth",
+						"OTA DNN Identifier": "Port Bandwidth"
+					}
+				},
+					{
+						"entityName": "3G Data Service",
+						"guid": "6ede51d5-9de7-4bd0-b4e4-176461699653",
+						"mappings": {
+							"MSISDN": "Modem Serial Number",
+							"IMSI": "Last Mile Media",
+							"DNN Identifier": "Access Bandwidth",
+							"Access APN Enabled": "Port Bandwidth"
+						}
+					},
+					{
+						"entityName": "2G Data Service",
+						"guid": "6ede51d5-9de7-4bd0-b4e4-176461699653",
+						"mappings": {
+							"MSISDN": "Modem Serial Number",
+							"IMSI": "Last Mile Media",
+							"DNN Identifier": "Access Bandwidth",
+							"Access APN Enabled": "Port Bandwidth"
+						}
+					},
+					{
+						"entityName": "5G Data Service",
+						"guid": "6ede51d5-9de7-4bd0-b4e4-176461699653",
+						"mappings": {
+							"MSISDN": "Modem Serial Number",
+							"IMSI": "Last Mile Media",
+							"DNN Identifier": "Access Bandwidth",
+							"OTA DNN Identifier": "Port Bandwidth",
+							"Access APN Enabled": true,
+							"EPS 5G SMS Delivery Mode": false
+						}
+					}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "ReserveNumber",
+			"sourcingInfo": {
+				"entities": [{
+					"entityName": "Mobile Subscription",
+					"guid": "3e55a624-e00c-48ad-aa44-a4310a73ef5f",
+					"mappings": {
+						"msisdn": "msisdn"
+					}
+				}],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "DeliverHardware",
+			"sourcingInfo": {
+				"entities": [{
+					"entityName": "Standard Mobile Handset",
+					"guid": "a5650485-8baa-402b-a23d-2c8152775c12",
+					"mappings": {
+						"IMEINumber": "IMEI Number"
+					}
+				}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "DeliverSIM",
+			"sourcingInfo": {
+				"entities": [{
+					"entityName": "Nano SIM CFS",
+					"guid": "9c1ba81d-0f27-47a8-b886-d27942d1d08a",
+					"mappings": {
+						"SimType": "simType",
+						"SIMSerialNumber": "SIM Serial Number"
+					}
+				}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "DispatchedSIM",
+			"sourcingInfo": {
+				"entities": [{
+					"entityName": "Nano SIM CFS",
+					"guid": "9c1ba81d-0f27-47a8-b886-d27942d1d08a",
+					"mappings": {
+						"SimType": "simType"
+					}
+				}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "ActivateNetwork",
+			"sourcingInfo": {
+				"entities": [{
+					"entityName": "eSIM CFS.",
+					"guid": "5663ec29-a71e-4845-9e72-e4b088ba0d81",
+					"mappings": {
+						"SimType": "simType",
+						"SIMSerialNumber": "SIM Serial Number"
+					}
+				},
+					{
+						"entityName": "Nano SIM CFS",
+						"guid": "9c1ba81d-0f27-47a8-b886-d27942d1d08a",
+						"mappings": {
+							"SimType": "simType",
+							"SIMSerialNumber": "SIM Serial Number"
+						}
+					}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "ActivateHBO",
+			"sourcingInfo": {
+				"entities": [{
+					"entityName": "eSIM CFS.",
+					"guid": "5663ec29-a71e-4845-9e72-e4b088ba0d81",
+					"mappings": {
+					}
+				}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+					"serviceName": "HBO Max Service"
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "ActivateAntivirus",
+			"sourcingInfo": {
+				"entities": [{
+					"entityName": "Standard Mobile Antivirus RFS",
+					"guid": "6f97888f-61fa-496f-993d-6d1a4fb40082",
+					"mappings": {
+						"email": "Email",
+						"endDate": "End Date",
+						"password": "Password",
+						"startDate": "Start Date",
+						"username": "Username"
+					}
+				}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "RealTimeChargingActivation",
+			"sourcingInfo": {
+				"entities": [{
+					"entityName": "Extended Lifecycle RFS",
+					"guid": "0e386dc8-e4c3-4a78-9b99-ab12876ec7c3",
+					"mappings": {
+						"BonusAppsID1": "BonusAppsID1"
+					}
+				}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "DataService",
+			"sourcingInfo": {
+				"entities": [{
+					"entityName": "PG Recurring Data Allnet RFS",
+					"guid": "92d04297-cd02-424a-9601-16e06f162c56",
+					"mappings": {
+						"PCRFPackage": "PCRF Package"
+					}
+				}, {
+					"entityName": "Data Allnet RFS",
+					"guid": "8a47e148-603f-4714-8c51-f8575fffb91e",
+					"mappings": {
+						"PCRFPackage": "PCRF Package"
+					}
+				}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "DataRoamingService",
+			"sourcingInfo": {
+				"entities": [{
+					"entityName": "PG Recurring Data Roaming RFS",
+					"guid": "95ebfd76-36ae-4a82-8fe8-51923d9fb53e",
+					"mappings": {
+						"PCRFPackage": "PCRF Package"
+					}
+				}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "VoiceService",
+			"sourcingInfo": {
+				"entities": [{
+					"entityName": "PG VOICE Allopr RFS",
+					"guid": "394c57c5-f7c0-4ea0-a3ad-77e858886166",
+					"mappings": {
+						"BonusAppsID1": "BonusAppsID1"
+					}
+				}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "SMSService",
+			"sourcingInfo": {
+				"entities": [{
+					"entityName": "PG SMS Allopr RFS",
+					"guid": "59ae1433-f9b5-41bb-bb0b-c5a102ba25cb",
+					"mappings": {
+						"BonusAppsID1": "BonusAppsID1"
+					}
+				}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "ActivateHLR",
+			"sourcingInfo": {
+				"entities": [{
+					"entityName": "Standard Mobile Handset",
+					"guid": "a5650485-8baa-402b-a23d-2c8152775c12",
+					"mappings": {
+					}
+				}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+					"msisdn": "9833848486",
+					"SubscriberType": "Postpaid",
+					"imsi": "204080010948431",
+					"apn": "internet.telecom.com",
+					"locationMsc": "316530",
+					"Operation": "Add",
+					"Services1": "CallWait(11)",
+					"Services2": "CallFwd(12)",
+					"CamelId": "15"
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		},
+		{
+			"name": "ActivateIMS",
+			"sourcingInfo": {
+				"entities": [{
+					"entityName": "Standard Mobile Handset",
+					"guid": "a5650485-8baa-402b-a23d-2c8152775c12",
+					"mappings": {
+					}
+				}
+				],
+				"orderHeaders": {},
+				"customer": {},
+				"defaults": {
+					"msisdn": "9833848486",
+					"imsServices": "CallFwd(12)",
+					"imsapn": "ims.telecom.com",
+					"imsUserId": "9833848486@telecom.com"
+				}
+			},
+			"enrichInfo": {
+				"entities": [],
+				"orderHeaders": {}
+			}
+		}
+	],
+	"errorMappings": [{
+			"systemErrorCode": "PTHL",
+			"omErrorCode": "PTHL",
+			"omErrorMsg": "Pole/Tower Height Limitation"
+		}
+	],
+	"defaultMessages": {}
+}

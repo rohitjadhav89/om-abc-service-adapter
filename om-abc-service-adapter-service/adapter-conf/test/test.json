@@ -1,0 +1,26 @@
+{
+  "StatusCode": "SBL-B2B-8000",
+  "StatusMessage": "LSI details returned successfully.",
+  "SiebelMessage": {
+    "IntObjectFormat": "Siebel Hierarchical",
+    "MessageId": "1-9ND9B",
+    "IntObjectName": "B2B LSI Leo",
+    "MessageType": "Integration Object",
+    "B2B LSI": {
+      "Contract End Date": "",
+      "KAM Contact Number": "9999999999",
+      "KAM Email": "neha4.gupta@airtel.com",
+      "FX Franchise Code": "93",
+      "Network Circuit Id For Service": "",
+      "Legal Entity": "Bharti Airtel Ltd",
+      "KAM Last Name": "Gupta Neha",
+      "Project Manager First Name": "Sunil",
+      "Billing Level": "PO Level",
+      "License Company": "BAL Internet",
+      "Parent Account Number": "32-2208107020594",
+      "State Code": "06",
+      "TSM OLM": "",
+      "PM TL Email": ""
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "Adapters": [
+    {
+      "name": "Validation",
+      "mapping": [
+        {
+          "error_codes": [
+            {
+              "system_error_code": "UNKNOWN_ERROR",
+              "type": "Functional"
+            }
+          ],
+          "external_mapped_code": "3001",
+          "internal_mapped_code": "UNKNOWN_ERROR"
+        }
+      ],
+      "default_error_code": "3010",
+      "default_description": "Unknown error occurred",
+      "internal_error_code": "UNKNOWN_ERROR",
+      "internal_description": "Unknown internal error occurred"
+    }
+  ]
+}
