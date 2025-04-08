@@ -2,77 +2,79 @@ pipeline {
     agent any
 
     environment {
-        // Define your Artifactory and Docker environment variables
-        ARTIFACTORY_URL = 'trialn07m4a.jfrog.io/artifactory'  // Corrected the Artifactory URL format
-        ARTIFACTORY_REPO = 'docker-local' // Your Artifactory Docker repo
-        ARTIFACTORY_CREDS = 'artifactory-credentials' // Jenkins credentials ID for Artifactory
+        // Artifactory Configuration
+        ARTIFACTORY_REGISTRY = 'trialn07m4a.jfrog.io'
+        ARTIFACTORY_REPO = 'docker-local'
+        ARTIFACTORY_CREDS = credentials('artifactory-credentials')  // Direct credential binding
+
+        // Image Configuration
         DOCKER_IMAGE = 'om-abc-service-adapter'
-        DOCKER_TAG = 'latest' // You can use git commit hash, or version tags as dynamic values
+        DOCKER_TAG = "${env.BUILD_NUMBER}-${env.GIT_COMMIT.take(7)}"  // Build number + git commit
+
+        // Dynamic Paths
+        PROJECT_DIR = 'om-abc-service-adapter-service'  // Your subdirectory
     }
 
     stages {
-        stage('Checkout') {
+        stage('Validate Environment') {
             steps {
-                // Checkout your GitHub repository
-                checkout scm
+                script {
+                    echo "Workspace: ${env.WORKSPACE}"
+                    echo "Project Directory: ${env.PROJECT_DIR}"
+                    dir(env.PROJECT_DIR) {
+                        if (!fileExists('Dockerfile')) {
+                            error("Dockerfile not found in ${env.PROJECT_DIR}")
+                        }
+                        sh 'ls -la'  // Debug directory contents
+                    }
+                }
             }
         }
 
         stage('Docker Login') {
-                    steps {
-                        //Required for pulling base images from hansen Jfrog cloud
-                        sh 'docker login trialn07m4a.jfrog.io -u rohitnarayanaboy@gmail.com -p cmVmdGtuOjAxOjE3NzU1Mzk5NzY6NVE3NFFUOWc5bG1JajFobFZSWmJDdlF3UlY1'
-                    }
-                }
-
-        stage('Build Docker Image') {
             steps {
-                script {
-                    // Build Docker image using Dockerfile in the root of the repo
+                sh """
+                docker login ${env.ARTIFACTORY_REGISTRY} \
+                    -u ${env.ARTIFACTORY_CREDS_USR} \
+                    -p ${env.ARTIFACTORY_CREDS_PSW}
+                """
+            }
+        }
+
+        stage('Build Image') {
+            steps {
+                dir(env.PROJECT_DIR) {
                     sh """
-                    docker build -t $ARTIFACTORY_URL/$ARTIFACTORY_REPO/$DOCKER_IMAGE:$DOCKER_TAG .
+                    docker build \
+                        -t ${env.ARTIFACTORY_REGISTRY}/${env.ARTIFACTORY_REPO}/${env.DOCKER_IMAGE}:${env.DOCKER_TAG} \
+                        -t ${env.ARTIFACTORY_REGISTRY}/${env.ARTIFACTORY_REPO}/${env.DOCKER_IMAGE}:latest \
+                        .
                     """
                 }
             }
         }
 
-        stage('Login to Artifactory') {
+        stage('Push Image') {
             steps {
-                script {
-                    // Login to JFrog Artifactory
-                    withCredentials([usernamePassword(credentialsId: "$ARTIFACTORY_CREDS", usernameVariable: 'ARTIFACTORY_USER', passwordVariable: 'ARTIFACTORY_PASS')]) {
-                        sh """
-                        docker login -u $ARTIFACTORY_USER -p $ARTIFACTORY_PASS $ARTIFACTORY_URL
-                        """
-                    }
-                }
-            }
-        }
-
-        stage('Push Docker Image to Artifactory') {
-            steps {
-                script {
-                    // Push the Docker image to Artifactory
-                    sh """
-                    docker push $ARTIFACTORY_URL/$ARTIFACTORY_REPO/$DOCKER_IMAGE:$DOCKER_TAG
-                    """
-                }
+                sh """
+                docker push ${env.ARTIFACTORY_REGISTRY}/${env.ARTIFACTORY_REPO}/${env.DOCKER_IMAGE}:${env.DOCKER_TAG}
+                docker push ${env.ARTIFACTORY_REGISTRY}/${env.ARTIFACTORY_REPO}/${env.DOCKER_IMAGE}:latest
+                """
             }
         }
     }
 
     post {
         always {
-            // Clean up docker images after the build is done
-            sh 'docker system prune -f'
+            sh 'docker logout ${env.ARTIFACTORY_REGISTRY} || true'
+            sh 'docker system prune -af || true'
         }
-
         success {
-            echo "Docker image pushed successfully to Artifactory!"
+            echo "Successfully built and pushed image"
+            echo "Image: ${env.ARTIFACTORY_REGISTRY}/${env.ARTIFACTORY_REPO}/${env.DOCKER_IMAGE}:${env.DOCKER_TAG}"
         }
-
         failure {
-            echo "The pipeline failed. Please check the logs for details."
+            echo "Pipeline failed - check console output"
         }
     }
 }
