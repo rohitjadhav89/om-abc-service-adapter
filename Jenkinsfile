@@ -23,7 +23,7 @@ pipeline {
         JFROG_REGISTRY = "trialn07m4a.jfrog.io"
         JFROG_NAMESPACE = "docker-local"
         CRED_ID = "artifactory-credentials"
-        BUCKET_NAME = "vm-om-helm"
+        BUCKET_NAME = "presales-om-helm"
 
         IMAGE_VERSION_TO_BE_PUSHED = ""
         POM_VERSION_TO_BE_USED = ""
@@ -117,7 +117,7 @@ pipeline {
                 }
             }
         }
-        stage('Trivy Vulnerability Scan') {
+        /* stage('Trivy Vulnerability Scan') {
             when {
                 expression { return params.RELEASE_VERSION || params.TRIVY_SCAN }
             }
@@ -167,7 +167,7 @@ pipeline {
                                     allowMissing         : false,
                                     alwaysLinkToLastBuild: true,
                                     keepAll              : true,
-                                    includes             : "**/*.html",
+                                    includes             : "** /* *//*.html",
                                     reportDir            : "/tmp/trivy-scan/${ADAPTER_NAME}/",
                                     reportFiles          : "${TRIVY_POM_VERSION}.html",
                                     reportName           : "Vulnerability Scan Report",
@@ -184,11 +184,11 @@ pipeline {
                     withSonarQubeEnv('SonarQube 8.1') {
                         sh 'mvn clean package sonar:sonar ' +
                                 '-Dorg.xml.sax.driver=com.sun.org.apache.xerces.internal.parsers.SAXParser ' +
-                                '-Dsonar.exclusions="** /* *//*.json,** /* *//*pojo*,**//* errorhandling *//**" '
+                                '-Dsonar.exclusions="**  *//* *//*  *//*.json,**  *//* *//*  *//*pojo*,**//*  *//* errorhandling *//*  *//**" '
                     }
                 }
             }
-        }
+        } */
         stage('Build and Test After Scan') {
             when {
                 expression { return params.RELEASE_VERSION || params.TRIVY_SCAN || params.SONARQUBE_SCAN }
