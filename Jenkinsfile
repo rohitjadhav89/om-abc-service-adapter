@@ -188,7 +188,7 @@ pipeline {
                     }
                 }
             }
-        } */
+        }
         stage('Build and Test After Scan') {
             when {
                 expression { return params.RELEASE_VERSION || params.TRIVY_SCAN || params.SONARQUBE_SCAN }
@@ -204,7 +204,7 @@ pipeline {
                     echo "build completed"
                 }
             }
-        }
+        }*/
         stage('Push Image to JFrog Artifactory') {
             when {
                 expression { return params.RELEASE_VERSION || params.PUSH_IMAGE_HELM_CHART_AND_INCREMENT_POM }
